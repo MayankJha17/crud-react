@@ -2,13 +2,15 @@ import React from 'react'
 
 export default function EmpTable() {
     return (
-        <table class="table table-bordered">
+        <table className="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
                     <th scope="col">Handle</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,8 +28,9 @@ export default function EmpTable() {
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
                 </tr>
             </tbody>
         </table>
