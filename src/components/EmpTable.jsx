@@ -1,6 +1,21 @@
+import { useEffect } from "react"
 import React from 'react'
 
+
+const getAllEmployee = "192.168.29.63:8080/employee/all";
+
 export default function EmpTable() {
+
+    useEffect( () => {
+      fetch(getAllEmployee)
+      .then((response) => {
+           return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+      })
+    },[]);
+
     return (
         <table className="table table-bordered table-hover">
             <thead>
