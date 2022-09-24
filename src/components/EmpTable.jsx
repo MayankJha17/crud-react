@@ -1,53 +1,50 @@
 import { useEffect } from "react"
-import React from 'react'
+import { useState } from "react";
 
 
-const getAllEmployee = "192.168.29.63:8080/employee/all";
-
+const getAllEmployeeAPI = "http://192.168.1.88:8080/employee/all";
 export default function EmpTable() {
+    const [data, setData] = useState([]);
 
-    useEffect( () => {
-      fetch(getAllEmployee)
-      .then((response) => {
-           return response.json();
-      })
-      .then((data) => {
-        console.log(data)
-      })
-    },[]);
+    useEffect(() => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(getAllEmployeeAPI, requestOptions)
+            .then(response => {
+                return response.json();
+
+            })
+            .then(data => {
+                let table = data.map((emp, count) =>
+                    <tr key={count}>
+                        <th scope="row">{count}</th>
+                        <td>{emp.name}</td>
+                        <td><button className="btn btn-primary" >Update</button></td>
+                        <td><button className="btn btn-primary">Delete</button></td>
+                    </tr>
+                );
+                setData(table)
+            })
+    }, []);
 
     return (
         <table className="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Update</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-            </tbody>
+            <tbody>{data}</tbody>
         </table>
     )
 }
+
+
+
+
+
